@@ -1,0 +1,119 @@
+criação da tabela pessoa:
+
+create table pessoa(iduff int primary key not null unique, nome varchar(45), passaporte varchar(8), naturalidade varchar(45), nacionalidade varchar(45), idade int(3), dt_nasc date, foto blob, cpf int(11));
+
+
+
+
+criação da tabela terceirizado:
+
+create table terceirizado(id int(7), sigla_emp varchar(3), cpf_pessoa int(11), primary key(sigla_emp, id));
+
+
+
+Criação da tabela aluno:
+
+create table aluno(matricula int(10), iduff_pessoa int(10), nome varchar(45), curso_id int(5), cpf_pessoa int(11));
+
+
+
+
+criação da tabela curso:
+
+create table curso(id_curso int(5) primary key not null unique, nome_curso varchar(45), instituto_id int(3));
+
+
+criação da tabela instituto:
+
+create table instituto(id int(3) primary key not null unique, nome varchar(45));
+
+
+
+criação da tabela departamento:
+
+create table departamento(id_dep int(4) primary key not null unique, nome_dep varchar(45), instituto_id int(3));
+
+
+
+criação da tabela contrato:
+
+create table contrato(id_contrato int(5) primary key not null unique, instituto_id int(3), nome_empresa varchar(45), status_contrato tinyint, sigla_empresa varchar(3));
+
+
+
+criação da tabela funcionario:
+
+create table funcionario(siape int(7), ativo tinyint, tipo_func int(1), iduff_pessoa int(10), cpf_pessoa int(11));
+
+
+criação da table atipo funcionario:
+
+create table tipo_funcionario(id_tipo int(1), nome_tipo varchar(30));
+
+
+adicionando chaves estrangeiras:
+
+aluno:
+alter table aluno add constraint fp_cpf_aluno foreign key (cpf_pessoa) references pessoa (cpf);
+
+funcionario:
+alter table funcionario add constraint fp_cpf_func foreign key (cpf_pessoa) references pessoa (cpf);
+
+aluno-curso:
+alter table aluno add constraint fp_id_curso foreign key (curso_id) references curso (id_curso);
+
+curso-inst:
+alter table curso add constraint fp_id_curso_inst foreign key (instituto_id) references instituto (id);
+
+dep-int:
+alter table departamento add constraint fp_id_dep_inst foreign key (instituto_id) references instituto (id);
+
+terceirizado:
+alter table terceirizado add constraint fp_cpf_terc foreign key (cpf_pessoa) references pessoa (cpf);
+alter table terceirizado add constraint fp_sigla_emp foreign key (sigla_emp) references contrato (sigla_empresa);
+
+
+
+
+
+
+
+
+consulta 1:
+
+select pessoa.nome, curso.nome_curso from pessoa, aluno, funcionario, curso where pessoa.cpf = aluno.cpf_pessoa and pessoa.cpf = funcionario.cpf_pessoa and aluno.curso_id = curso.id_curso;
+
+mais elaborada:
+
+select pessoa.nome, curso.nome_curso, tipo_funcionario.nome_tipo from pessoa, aluno, funcionario, tipo_funcionario, curso where pessoa.cpf = aluno.cpf_pessoa and pessoa.cpf = funcionario.cpf_pessoa and aluno.curso_id = curso.id_curso and funcionario.tipo_func = tipo_funcionario.id_tipo;
+
+
+Consulta 2.a):
+
+SELECT pessoa.nome, instituto.nome from pessoa, funcionario, departamento, instituto where pessoa.cpf = funcionario.cpf_pessoa and funcionario.dep = departamento.id_dep and departamento.instituto_id = instituto.id;
+
+Consulta 2.b) *coluna ou linha???
+select concat(instituto.nome, ';') from instituto, pessoa, aluno, curso, departamento, funcionario where aluno.cpf_pessoa = 1122233399 and aluno.curso_id = curso.id_curso and curso.instituto_id = instituto.id union select concat(instituto.nome, ';') from instituto, pessoa, aluno, curso, departamento, funcionario where funcionario.cpf_pessoa = 1122233399 and funcionario.dep = departamento.id_dep and departamento.instituto_id = instituto.id;
+
+
+Consulta 2.c):
+select concat('"Consulta Institutos": [{ "Instituto 1: "',instituto.nome, '",') As Concatenacao from instituto, pessoa, aluno, curso, departamento, funcionario where aluno.cpf_pessoa = 1122233399 and aluno.curso_id = curso.id_curso and curso.instituto_id = instituto.id union select concat('"Instituto 2": "', instituto.nome, '"}]') from instituto, pessoa, aluno, curso, departamento, funcionario where funcionario.cpf_pessoa = 1122233399 and funcionario.dep = departamento.id_dep and departamento.instituto_id = instituto.id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
