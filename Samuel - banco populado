@@ -1,0 +1,89 @@
+mysql> select * from aluno;
++------------+----------+------------+
+| matricula  | curso_id | cpf_pessoa |
++------------+----------+------------+
+| 1234567890 |        2 |  110022456 |
+| 1235557890 |        5 | 1122233399 |
++------------+----------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from curso;
++----------+------------------------+--------------+
+| id_curso | nome_curso             | instituto_id |
++----------+------------------------+--------------+
+|        1 | ANALISE DE SISTEMAS    |            1 |
+|        2 | REDES DE COMPUTADORES  |            1 |
+|        3 | WEB DESIGN             |            1 |
+|        4 | SISTEMAS DE INFORMACAO |            1 |
+|        5 | CIENCIA DE DADOS       |            1 |
++----------+------------------------+--------------+
+
+mysql> select * from departamento;
++--------+----------------------+--------------+
+| id_dep | nome_dep             | instituto_id |
++--------+----------------------+--------------+
+|      1 | CONTROLE DE NOTAS    |            1 |
+|      2 | CONTROLE DE NOTAS    |            2 |
+|      3 | CONTROLE DE NOTAS    |            3 |
+|      4 | CONTROLE DE NOTAS    |            4 |
+|      5 | CONTROLE DE NOTAS    |            5 |
+|      6 | NOVAS TECNOLOGIAS    |            1 |
+|      7 | PRATICAS PEDAGOGICAS |            2 |
+|      8 | SECRETARIA ACADEMICA |            3 |
+|     10 | PRATICAS PEDAGOGICAS |            5 |
++--------+----------------------+--------------+
+
+mysql> select * from instituto;
++----+---------------------------+
+| id | nome                      |
++----+---------------------------+
+|  1 | CIENCIA DA COMPUTACAO     |
+|  2 | ENGENHARIA                |
+|  3 | QUIMICA                   |
+|  4 | EDUCACAO FISICA           |
+|  5 | BIOMEDICINA               |
+|  6 | CIENCIAS HUMANAS          |
+|  7 | ARTE E COMUNICACAO SOCIAL |
++----+---------------------------+
+
+mysql> select * from funcionario;
++---------+-------+-----------+------------+------+
+| siape   | ativo | tipo_func | cpf_pessoa | dep  |
++---------+-------+-----------+------------+------+
+| 2040301 |     1 |         2 | 1122233399 |   10 |
+| 2041546 |     1 |         1 |  110022456 |    1 |
+| 2041000 |     1 |         2 |  165489732 |   10 |
++---------+-------+-----------+------------+------+
+
+mysql> select * from contrato;
++--------------+---------------------------------+-----------------+---------------+
+| instituto_id | nome_empresa                    | status_contrato | sigla_empresa |
++--------------+---------------------------------+-----------------+---------------+
+|            4 | AA MANUTENCOES                  |               0 | AAF           |
+|            5 | BIO MED INSTRUMENTOS CIRURGICOS |               0 | BMI           |
+|            4 | FIT EQUIPAMENTOS                |               1 | FTE           |
+|            1 | JM LIMPEZA                      |               1 | JML           |
+|            5 | MED RIO INSTRUMENTOS CIRURGICOS |               1 | MRI           |
++--------------+---------------------------------+-----------------+---------------+
+
+
+mysql> select * from pessoa;
++-------+-------------------------+------------+----------------+---------------+-------+------------+------+------------+
+| iduff | nome                    | passaporte | naturalidade   | nacionalidade | idade | dt_nasc    | foto | cpf        |
++-------+-------------------------+------------+----------------+---------------+-------+------------+------+------------+
+|     1 | JOAO DA SILVA           | CB884455   | RIO DE JANEIRO | BRASILEIRA    |  NULL | 1990-05-13 | NULL | 1122233399 |
+|     2 | FULANO DOS SANTOS SILVA | TS884546   | RIO DE JANEIRO | BRASILEIRA    |  NULL | 1988-06-10 | NULL |  110022456 |
+|     3 | BELTRANO PEREIRA        | TS551122   | RIO DE JANEIRO | BRASILEIRA    |  NULL | 1992-01-28 | NULL |  165489732 |
++-------+-------------------------+------------+----------------+---------------+-------+------------+------+------------+
+
+
+
+mysql> select * from tipo_funcionario;
++---------+-----------+
+| id_tipo | nome_tipo |
++---------+-----------+
+|       1 | PROFESSOR |
+|       2 | TECNICO   |
++---------+-----------+
+
+
